@@ -1,0 +1,61 @@
+user 1 ..........userquizattempt
+quiz 1 ...........question
+question 1 ............answer
+userquizattempt 1 ......user answer .....to the question
+
+
+
+
+now the models
+
+class User(Model.models):
+    Name = charField()
+    age = integer()
+
+    def __str__(self):
+        return f"(self.Name)"
+
+class Quiz(Models.model):
+    title =
+    descriptions:
+    created_at:
+
+class Question(models.model):
+    quiz = model.ForeignKey(Quiz, related_name=question on_delete=model.CASCADE).......having a relationship with the quiz
+    text = model.charField()
+
+
+class Options(model.model):
+    question = model.ForeignKey(Question, on_delete=model.CASCADE)
+    text = model.charField()
+    is_correct = BooleanField()
+
+and Options == 4
+ if Options != 4
+    raise an erro   
+
+
+class UserQuizAttempt(models.Model):
+    user = model.ForeignKey(user, on_delete.models.CASCADE)
+    quiz = model.ForeignKey(Quiz, on_delete.models.CASCADE)
+    score = model.floating()
+    started_at = model.timeField(date_add_now=True)
+    completed-at = model.timeField(date_add_now=True)
+
+
+
+class UserAnswer(models.Model):
+    attempt = models.ForeignKey(UserQuizAttempt, related_name='user_answers', on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    Options = models.ForeignKey(Options, on_delete=models.CASCADE)
+  
+
+    def __str__(self):
+        return f'{self.attempt.user.username} - {self.question.text} - {self.answer.text}
+
+
+
+
+asignment
+research on api and write about it and push to the github repository
+make sure that all app urls are connected to the main urls
