@@ -112,7 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'accounts.pagination.CustomPagination',
+}
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 

@@ -9,5 +9,6 @@ urlpatterns = [
    path('deletequestion/<int:pk>', views.deletequestion, name='deletequestion'),
    path('allOptions', views.getOptions, name='allOptions'),
    path('createOption', views.createOption, name='createOption'),
-   path('all', views.getALL, name='all')
+   path('all', views.getALL, name='all'),
+   path('getAllOptions', views.getAllOptions, name='getAllOptions')
 ]

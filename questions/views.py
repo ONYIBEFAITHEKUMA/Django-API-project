@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from .models import Question, Options
 # from rest_framework.permissions import AllowAny
 from . Serializer import QuestionSerializer, CreateQuestionSerializer, UpdateQuestionSerializer, OptionSerializer,CreateOptionsSerailizer, AllQuestionSerializer
-
+from accounts.pagination import CustomPagination
 
 # Create your views here.
 @api_view(['GET'])
@@ -19,8 +19,10 @@ def apiStatus(request):
 @api_view(['GET'])
 def getAllquestion(request):
     question = Question.objects.all().order_by('created_at')
-    serializer = QuestionSerializer(question, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    pagination = CustomPagination()  
+    pagination_question = pagination.paginate_queryset(question, request)
+    serializer = QuestionSerializer(pagination_question, many=True)
+    return pagination.get_paginated_response(serializer.data)
 
 @api_view(['POST'])
 def createQuestions(requset):
@@ -52,6 +54,15 @@ def deletequestion(request, pk):
     question.delete()
     return Response({'message': 'question deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
 
+
+@api_view(['GET'])
+def getAllOptions(request):
+    options = Options.objects.all().order_by('created_at')
+    pagination = CustomPagination()
+    pagination_option = pagination.paginate_queryset(options, request)
+    serializer = OptionSerializer(pagination_option, many= True)
+    return pagination.get_paginated_response(serializer.data)
+     
 @api_view(['GET'])
 def getOptions(request):
     try:

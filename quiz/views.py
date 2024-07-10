@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from .serializer import QuizSerializer,CreateQuizSerializer, UpdateQuizSerializer
 from .models import Quiz
 
+
 # Create your views here.
 @api_view(['GET'])
 def apiStatus(request):
