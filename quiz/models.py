@@ -15,7 +15,7 @@ class Quiz(models.Model):
     
     
 class UserQuizAttempt(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+   
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     score = models.FloatField()
     started_at = models.DateTimeField(auto_now_add=True)
