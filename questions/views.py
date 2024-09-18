@@ -3,20 +3,24 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from .models import Question, Options
 # from rest_framework.permissions import AllowAny
 from . Serializer import QuestionSerializer, CreateQuestionSerializer, UpdateQuestionSerializer, OptionSerializer,CreateOptionsSerailizer, AllQuestionSerializer
 from accounts.pagination import CustomPagination
+import random
+from django.db import connection
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
-# Create your views here.
+
 @api_view(['GET'])
-
+@permission_classes([AllowAny])
 def apiStatus(request):
     return Response({'status': 'Question API is working'}, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def getAllquestion(request):
     question = Question.objects.all().order_by('created_at')
     pagination = CustomPagination()  
@@ -84,12 +88,13 @@ def createOption(request):
 def getALL(request):
     question_option = Question.objects.all().order_by('created_at').prefetch_related('options')
     serializer = AllQuestionSerializer(question_option, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.data,  status=status.HTTP_200_OK)
 
 
-
-
-
-
-
-
+@api_view(['GET'])
+def random_question(request):
+    random_objects = Question.objects.order_by('?')[:10]
+    serializer =AllQuestionSerializer (random_objects, many=True)
+    
+    return Response (serializer.data, status=status.HTTP_200_OK)
+    

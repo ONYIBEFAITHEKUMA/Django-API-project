@@ -10,5 +10,6 @@ urlpatterns = [
    path('allOptions', views.getOptions, name='allOptions'),
    path('createOption', views.createOption, name='createOption'),
    path('all', views.getALL, name='all'),
-   path('getAllOptions', views.getAllOptions, name='getAllOptions')
+   path('getAllOptions', views.getAllOptions, name='getAllOptions'),
+   path('random_question', views.random_question , name='random_question')
 ]
